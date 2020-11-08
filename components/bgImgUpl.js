@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Box } from "rebass"
-import { FutureLogs } from "./futurelog"
+import { FutureLogs } from "../components/futureLog"
 
 export const BgUpl = ({setUpload, upload, setCurAct, setCircles, setShowUrl, showUrl}) => {
 
