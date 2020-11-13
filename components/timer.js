@@ -8,10 +8,11 @@ export const Timer = ({time}) => {
 
     return (
       !showEnd &&  <Box style={{
-            width: '100vw',
+
+            width: '640px',
+            margin: '0 auto',
             position: 'relative',
-            top: 0,
-            backgroundColor: '#FFFFFF80',
+            top: 20,
             display: 'flex',
             justifyContent: "center",
             alignItems: "center",
@@ -25,9 +26,10 @@ export const Timer = ({time}) => {
         }}>
             <div style={{
                 backgroundColor: 'yellow',
-                padding: 5
+                padding: 5,
+                borderRadius: 10
             }}>
-                {time > 100 ? 'Practice Mode: Timer Will Begin When First Point Is Clicked On' : time === 0 ? `Practice Point` : `Time Elapsed: ${time}`}
+                {time > 200 ? 'Practice Mode: Timer Will Begin When First Point Is Clicked On' : time === 0 ? `Start!!!!` : `time: ${time} sec`}
             </div>
         </Box>
     )

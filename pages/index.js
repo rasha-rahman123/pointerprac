@@ -7,9 +7,9 @@ import { ShowEnd } from "../components/showEnd";
 import { Timer } from "../components/timer";
 import { InstruMod } from "../components/instructionModal";
 import { Box } from "rebass";
-import {useRouter} from 'next/router'
-import {useContext} from 'react'
-import ShowEndContext from '../contexts/ShowEndContexts'
+import { useRouter } from "next/router";
+import { useContext } from "react";
+import ShowEndContext from "../contexts/ShowEndContexts";
 import { Header } from "../components/header";
 import { Warning } from "../components/modalWarning";
 import { Transition } from "react-transition-group";
@@ -27,49 +27,49 @@ export default function Home() {
   const [toggleCorrect, setToggleCorrect] = useState();
   // const [showEnd, setShowEnd] = useState(false);
   // const [history, setHistory] = useState([]);
-  
+
   // const [time, setTime] = useState(0);
   const [timerOn, setTimerOn] = useState(false);
   const [timerStart, setTimerStart] = useState(0);
   const [finalTime, setFinalTime] = useState(0);
   const [opts, setOpts] = useState([]);
   const [curAct, setCurAct] = useState(false);
-  const {warning, setWarning} = useContext(ShowEndContext)
-  const {startIt, setStartIt} = useContext(ShowEndContext)
-  const { setInverted } = useContext(ShowEndContext)
-  const { inverted } = useContext(ShowEndContext)
+  const { warning, setWarning } = useContext(ShowEndContext);
+  const { startIt, setStartIt } = useContext(ShowEndContext);
+  const { setInverted } = useContext(ShowEndContext);
+  const { inverted } = useContext(ShowEndContext);
   useEffect(() => {
-   query > 0 && query['opt'].includes(10) ? setInverted(true) : setInverted(false)
+    query > 0 && query["opt"].includes(10)
+      ? setInverted(true)
+      : setInverted(false);
+  }, [query]);
 
-  },[query])
+  const { setX } = useContext(ShowEndContext);
+  const { x } = useContext(ShowEndContext);
 
-  const { setX } = useContext(ShowEndContext)
-  const { x } = useContext(ShowEndContext)
+  const { setBNW } = useContext(ShowEndContext);
+  const { bNw } = useContext(ShowEndContext);
 
-  const { setBNW } = useContext(ShowEndContext)
-  const { bNw } = useContext(ShowEndContext)
+  const { y } = useContext(ShowEndContext);
+  const { setY } = useContext(ShowEndContext);
 
-  const { y} = useContext(ShowEndContext)
-  const { setY } = useContext(ShowEndContext)
+  const { setTime } = useContext(ShowEndContext);
+  const { time } = useContext(ShowEndContext);
 
-  const { setTime } = useContext(ShowEndContext)
-  const { time } = useContext(ShowEndContext)
+  const { setCircles } = useContext(ShowEndContext);
+  const { circles } = useContext(ShowEndContext);
 
-  const { setCircles } = useContext(ShowEndContext)
-  const { circles } = useContext(ShowEndContext)
+  const { setInGame } = useContext(ShowEndContext);
+  const { inGame } = useContext(ShowEndContext);
 
-  const { setInGame } = useContext(ShowEndContext)
-  const { inGame } = useContext(ShowEndContext)
+  const { setHistory } = useContext(ShowEndContext);
+  const { history } = useContext(ShowEndContext);
 
-  const { setHistory } = useContext(ShowEndContext)
-  const { history } = useContext(ShowEndContext)
+  const { setShowEnd } = useContext(ShowEndContext);
+  const { showEnd } = useContext(ShowEndContext);
 
-  const { setShowEnd } = useContext(ShowEndContext)
-  const { showEnd } = useContext(ShowEndContext)
-
-  const { setShowUrl } = useContext(ShowEndContext)
-  const { showUrl } = useContext(ShowEndContext)
-
+  const { setShowUrl } = useContext(ShowEndContext);
+  const { showUrl } = useContext(ShowEndContext);
 
   useEffect(() => {
     document.onmousemove = !showUrl && onMouseMove;
@@ -85,67 +85,61 @@ export default function Home() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTime(Date.now())
+      setTime(Date.now());
     }, 10);
 
-    time === -1 && clearInterval(timer)
-  })
+    time === -1 && clearInterval(timer);
+  });
 
   const startTimer = (str) => {
-
-    str === 'start' && setTimerOn(true);
-    str === 'start' && setTime(0)
-    setTimerStart(time)
-    
-
-    
+    str === "start" && setTimerOn(true);
+    str === "start" && setTime(0);
+    setTimerStart(time);
   };
 
   const stopTimer = () => {
-    setFinalTime(time - timerStart)
-    setTimerOn(false)
-
+    setFinalTime(time - timerStart);
+    setTimerOn(false);
   };
   const resetTimer = () => {
-   setTime(-1)
-   setTimerStart(0)
+    setTime(-1);
+    setTimerStart(0);
   };
-
-
-
-
 
   // useEffect(async () => {
   //   const p = await new Date();
   //   let j = p.getTime();
 
-
-    
   //   let k = [...circles]
   //   let o = [...history]
   //   inGame && time < 0.1;
-  //   // inGame && k.length > 0 && k[0].index === o[o.length - 1].index && time && setTime(j - time) 
+  //   // inGame && k.length > 0 && k[0].index === o[o.length - 1].index && time && setTime(j - time)
 
   // },[circles])
 
+  useEffect(() => {
+    inGame && setTime(0);
+  }, [inGame]);
 
   const onKeyDown = (e) => {
     e = e || window.event;
     switch (e.keyCode) {
       case 90:
         let q = [...circles];
-        !inGame && e.ctrlKey && setCircles(q.filter((x, i) => i < q.length - 1));
+        !inGame &&
+          e.ctrlKey &&
+          setCircles(q.filter((x, i) => i < q.length - 1));
         break;
       case 82:
         showEnd && levelRestart();
         break;
       case 70:
-      showEnd && sameBG();
-      break;
+        showEnd && sameBG();
+        break;
       case 13:
-      showUrl && setStartIt(true)
+        showUrl && setStartIt(true);
       case 27:
-        warning && setWarning(false)
+        warning && setWarning(false);
         break;
       case 81:
         showEnd && !warning && setWarning(true);
@@ -153,15 +147,21 @@ export default function Home() {
         break;
       case 32:
         let j = [...circles];
-        showUrl && setStartIt(true)
+        showUrl && setStartIt(true);
         !showUrl && setHistory(j);
-        !inGame && !showUrl && circles.length < 2 && window.alert(`You selected less than two points, I cannot change to practice mode until you choose ${(2 - circles.length)} more point${(circles.length < 1 ? 's' : '')}`)
+        !inGame &&
+          !showUrl &&
+          circles.length < 2 &&
+          window.alert(
+            `You selected less than two points, I cannot change to practice mode until you choose ${
+              2 - circles.length
+            } more point${circles.length < 1 ? "s" : ""}`
+          );
         !showUrl && !showEnd && circles.length > 1 && setInGame(!inGame);
-       
+
         break;
     }
   };
-
 
   const onClick = async (e) => {
     e = e || window.event;
@@ -180,8 +180,11 @@ export default function Home() {
       q[0].y > e.clientY - 50
         ? true
         : false;
-        inGame && q.length > 0 && q[0].index === 0 && startTimer('start')
-        inGame && q.length > 0 && q[0].index === r[r.length - 1].index && stopTimer()
+    inGame && q.length > 0 && q[0].index === 0 && startTimer("start");
+    inGame &&
+      q.length > 0 &&
+      q[0].index === r[r.length - 1].index &&
+      stopTimer();
     inGame && j && q.shift();
     setCircles(q);
     inGame && q.length < 1 && setShowEnd(true) && setInGame(false);
@@ -189,62 +192,80 @@ export default function Home() {
 
   const levelRestart = async () => {
     await setShowEnd(false);
-    setCurAct(false)
+    setCurAct(false);
     await resetTimer;
     await setInGame(true);
     await setTime(null);
     let q = [...history];
     setCircles(q);
-
   };
 
   useEffect(() => {
-    !bNw && query['opt'] && query['opt'].includes(1) && setBNW(true)
-    bNw && setBNW(false)
-  },[router])
-
-
-
+    !bNw && query["opt"] && query["opt"].includes(1) && setBNW(true);
+    bNw && setBNW(false);
+  }, [router]);
 
   const sameBG = async () => {
-    setCurAct(false)
+    setCurAct(false);
     resetTimer;
     const delay = setTimeout(() => {
       setCircles([]);
-    },1)
+    }, 1);
     await setInGame(false);
-    await   setShowEnd(false);
+    await setShowEnd(false);
     await setTime(null);
     await delay;
-  
   };
   return (
     <div
-      className={styles.full} 
+      className={styles.full}
       style={{
-        background: !showUrl && upload 
-          ? `url('${upload}') no-repeat center center fixed`
-          : bNw ? 'black' : 'none',
-          transition: 'background-image 300ms ease-in-out',
-          cursor: showUrl ? 'initial' : 'none',
-          filter: bNw && 'saturate(0)'
+        fontFamily: 'Inter',
+        background:
+          !showUrl && upload
+            ? `url('${upload}') no-repeat center center fixed`
+            : bNw
+            ? "black"
+            : "none",
+        transition: "background-image 300ms ease-in-out",
+        cursor: showUrl ? "initial" : "none",
+        filter: bNw && "saturate(0)",
       }}
     >
       {/* {!inGame && <Header />} */}
-      {warning && <Warning text="are you sure you wanna choose a new image?" commands="hit 'q' on your keyboard to continue or 'ESC' to go back" />}
-     
-    {showEnd &&  <ShowEnd opts={opts} setCurAct={setCurAct} history={history} time={finalTime} sameBG={sameBG} levelRestart={levelRestart} showEnd={showEnd} />}
-      {inGame && <Timer time={!showEnd ? Math.round((time - timerStart) / 1000) : 0} />}
-     <Box sx={{
-       position: 'fixed',
-       left: 0,
-      bottom: 0,
-      color: 'white',
-      fontWeight: 'bolder',
-      mx: 20
-     }}>
-     <InstruMod showUrl={showUrl}inGame={inGame} showEnd={showEnd} />
-     </Box>
+      {warning && (
+        <Warning
+          text="are you sure you wanna choose a new image?"
+          commands="hit 'q' on your keyboard to continue or 'ESC' to go back"
+        />
+      )}
+
+      {showEnd && (
+        <ShowEnd
+          opts={opts}
+          setCurAct={setCurAct}
+          history={history}
+          time={finalTime}
+          sameBG={sameBG}
+          levelRestart={levelRestart}
+          showEnd={showEnd}
+        />
+      )}
+      {inGame && (
+        <Timer time={!showEnd ? Math.round((time - timerStart) / 1000) : 0} />
+      )}
+      <Box
+        sx={{
+          position: "fixed",
+          left: 0,
+          bottom: 0,
+          color: "white",
+          fontWeight: "bolder",
+          mx: 20,
+        }}
+      >
+        <InstruMod showUrl={showUrl} inGame={inGame} showEnd={showEnd} />
+      </Box>
       <BgUpl
         showUrl={showUrl}
         setShowUrl={setShowUrl}
@@ -269,17 +290,18 @@ export default function Home() {
           style={{
             width: inGame ? "20px" : "50px",
             height: inGame ? "20px" : "50px",
-            border: inGame ? '3px solid limegreen' : '1px solid orange',
+            border: inGame ? "3px solid limegreen" : "1px solid orange",
             backgroundColor: inGame
               ? toggleCorrect
                 ? "#32cd3260"
                 : "#FFFFFF60"
               : "#00000060",
-        
+
             borderRadius: "25px",
-            
+
             transition: "all 300ms ease-in-out",
-            display: showUrl || curAct && "none",
+            display: showUrl || (curAct && "none"),
+            visibility: showUrl && 'hidden'
           }}
         ></div>
       </div>
@@ -292,7 +314,8 @@ export default function Home() {
               top: x.y,
               left: x.x,
               overflow: "hidden",
-              transition: router && query['opt'].includes(5) && 'all 300ms linear',
+              transition:
+                router && query["opt"].includes(5) && "all 300ms linear",
               zIndex: 0,
             }}
           >
@@ -306,11 +329,19 @@ export default function Home() {
                 backgroundColor:
                   circles.length - 1 === i
                     ? !inGame
-                      ? inverted ? '#070701' : 'ghostwhite'
-                      : inverted ? '#4f1f19' : 'powderblue'
+                      ? inverted
+                        ? "#070701"
+                        : "ghostwhite"
+                      : inverted
+                      ? "#4f1f19"
+                      : "powderblue"
                     : i === 0
-                    ? inverted ? '#002152' : "navajowhite"
-                    : inverted ? '#4f1f19' : 'powderblue',
+                    ? inverted
+                      ? "#002152"
+                      : "navajowhite"
+                    : inverted
+                    ? "#4f1f19"
+                    : "powderblue",
                 border: i === 0 && inGame && "5px solid orange",
                 borderRadius: circles.length - 1 === i ? "20px" : "25px",
                 boxShadow: "outset 0 0 20px #c3c3c360",
@@ -332,7 +363,8 @@ export default function Home() {
                     ? "1.4rem"
                     : "1.2rem",
                 zIndex: "inherit",
-                transition: router && query['opt'].includes(2) && 'all 300ms linear',
+                transition:
+                  router && query["opt"].includes(2) && "all 300ms linear",
               }}
             >
               {i === 0 && "+"}
